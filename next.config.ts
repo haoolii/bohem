@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://bohem-api.vercel.app/api/:path*'
+        source: '/assets/:path*',
+        destination: 'https://7gbkcuhyatc9nweq.public.blob.vercel-storage.com/:path*'
       }
     ]
   }
