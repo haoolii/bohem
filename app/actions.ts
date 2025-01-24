@@ -2,7 +2,18 @@
 
 export async function create(formData: FormData) {
   const file = formData.get("file") as Blob;
+  const prompt = formData.get("prompt") as string;
+  const expireIn = formData.get("expireIn") as string;
+  const passwordRequired = formData.get("passwordRequired") as string;
+  const password = formData.get("password") as string;
 
+  console.log({
+    file,
+    prompt,
+    expireIn,
+    passwordRequired,
+    password,
+  });
   const data = new FormData();
 
   data.append("file", file);
@@ -13,17 +24,17 @@ export async function create(formData: FormData) {
   });
 
   const json = await response.json();
-  console.log("json", json);
+  // console.log("json", json);
   const url = json?.data?.blob?.url;
   const fileName = url.match(/[^/]+$/)?.[0];
-  console.log("filename", fileName);
+  // console.log("filename", fileName);
   const payload = {
     original: fileName,
     type: "image",
-    passwordRequired: true,
-    password: "test",
-    prompt: "hello world",
-    expireIn: 8640000,
+    passwordRequired: passwordRequired === "on",
+    password,
+    prompt,
+    expireIn: +expireIn,
   };
 
   const myHeaders = new Headers();
@@ -37,6 +48,8 @@ export async function create(formData: FormData) {
       body: JSON.stringify(payload),
     }
   );
+
+  console.log('shortenResponse', shortenResponse)
 
   const shortenJson = await shortenResponse.json();
 

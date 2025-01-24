@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { Upload } from "./(component)/upload";
+
+import { CreateForm } from "./(component)/createForm";
 
 export default function Home() {
   return (
     <div className="">
-      <Upload />
+      <CreateForm />
     </div>
   );
 }

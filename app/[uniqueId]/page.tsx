@@ -12,7 +12,7 @@ export default async function Unique({
 
   const getJson = await getResolve(uniqueId);
 
-  if (getJson.data.passwordRequired) {
+  if (getJson?.data?.passwordRequired) {
     return (
       <div>
         <h1>Need password</h1>
