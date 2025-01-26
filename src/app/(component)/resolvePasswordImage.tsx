@@ -22,9 +22,6 @@ export const ResolvePasswordImage: React.FC<Props> = ({ uniqueId, prompt }) => {
     setPostJson(json);
     setIsLoading(false);
   };
-  // const getJson = await resolveGetAction(uniqueId);
-
-  // const passwordRequired = getJson?.data?.passwordRequired;
 
   const imageUrl = useMemo(() => {
     if (!postJson) return "";
@@ -62,5 +59,5 @@ export const ResolvePasswordImage: React.FC<Props> = ({ uniqueId, prompt }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};

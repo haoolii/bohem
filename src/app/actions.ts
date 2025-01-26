@@ -1,9 +1,10 @@
 "use server";
 
-import {
-  ImageShortenActionBody,
-  UrlShortenActionBody,
-} from "./(type)/image.types";
+import { ImageShortenActionBody } from "@/types/image.types";
+import { MediaShortenActionBody } from "@/types/media.types";
+import { UrlShortenActionBody } from "@/types/url.types";
+
+const API_URL = process.env.API_URL;
 
 export async function shortenImageAction(body: ImageShortenActionBody) {
   try {
@@ -11,13 +12,10 @@ export async function shortenImageAction(body: ImageShortenActionBody) {
 
     uploadFormData.append("file", body.file);
 
-    const uploadResponse = await fetch(
-      "http://localhost:1234/api/v2/asset/upload",
-      {
-        method: "POST",
-        body: uploadFormData,
-      }
-    );
+    const uploadResponse = await fetch(`${API_URL}/api/v2/asset/upload`, {
+      method: "POST",
+      body: uploadFormData,
+    });
 
     const uploadJson = await uploadResponse.json();
 
@@ -46,7 +44,7 @@ export async function shortenImageAction(body: ImageShortenActionBody) {
     headers.append("Content-Type", "application/json");
 
     const shortenResponse = await fetch(
-      "http://localhost:1234/api/v2/shorten",
+      `${API_URL}/api/v2/shorten`,
       {
         method: "POST",
         headers,
@@ -62,19 +60,16 @@ export async function shortenImageAction(body: ImageShortenActionBody) {
   }
 }
 
-export async function shortenMediaAction(body: ImageShortenActionBody) {
+export async function shortenMediaAction(body: MediaShortenActionBody) {
   try {
     const uploadFormData = new FormData();
 
     uploadFormData.append("file", body.file);
 
-    const uploadResponse = await fetch(
-      "http://localhost:1234/api/v2/asset/upload",
-      {
-        method: "POST",
-        body: uploadFormData,
-      }
-    );
+    const uploadResponse = await fetch(`${API_URL}/api/v2/asset/upload`, {
+      method: "POST",
+      body: uploadFormData,
+    });
 
     const uploadJson = await uploadResponse.json();
 
@@ -103,7 +98,7 @@ export async function shortenMediaAction(body: ImageShortenActionBody) {
     headers.append("Content-Type", "application/json");
 
     const shortenResponse = await fetch(
-      "http://localhost:1234/api/v2/shorten",
+      `${API_URL}/api/v2/shorten`,
       {
         method: "POST",
         headers,
@@ -131,7 +126,7 @@ export async function shortenUrlAction(body: UrlShortenActionBody) {
     prompt: "",
     expireIn: body.expireIn,
   };
-  const shortenResponse = await fetch("http://localhost:1234/api/v2/shorten", {
+  const shortenResponse = await fetch(`${API_URL}/api/v2/shorten`, {
     method: "POST",
     headers,
     body: JSON.stringify(shortenPayload),
@@ -143,9 +138,7 @@ export async function shortenUrlAction(body: UrlShortenActionBody) {
 }
 
 export async function resolveGetAction(uniqueId: string) {
-  const resolveResponse = await fetch(
-    `http://localhost:1234/api/v2/resolve/${uniqueId}`
-  );
+  const resolveResponse = await fetch(`${API_URL}/api/v2/resolve/${uniqueId}`);
 
   const resolveJson = await resolveResponse.json();
 
@@ -157,14 +150,11 @@ export async function resolvePostAction(uniqueId: string, password: string) {
 
   headers.append("Content-Type", "application/json");
 
-  const resolveResponse = await fetch(
-    `http://localhost:1234/api/v2/resolve/${uniqueId}`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ password }),
-    }
-  );
+  const resolveResponse = await fetch(`${API_URL}/api/v2/resolve/${uniqueId}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ password }),
+  });
 
   const resolveJson = await resolveResponse.json();
 

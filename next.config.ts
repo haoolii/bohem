@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/o/:path*",
-        destination: "http://localhost:1234/o/:path*",
+        destination: `${process.env.API_URL}/o/:path*`,
       },
     ];
   },

@@ -1,20 +1,8 @@
-import { redirect } from 'next/navigation';
-import { resolveGetAction } from '../actions';
+import { redirect } from "next/navigation";
 
 type Props = {
-  uniqueId: string;
+  original: string;
 };
-export const ResolveUrl: React.FC<Props> = async ({ uniqueId }) => {
-
-  const getJson = await resolveGetAction(uniqueId);
-
-  if (!getJson || !getJson.data || !getJson.data.original) {
-    return <></>
-  }
-
-  const original = getJson.data.original;
-
+export const ResolveUrl: React.FC<Props> = async ({ original }) => {
   redirect(original);
-
-  return null;
 };

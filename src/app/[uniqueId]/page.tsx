@@ -20,7 +20,7 @@ export default async function Unique({
     case "media":
       return <ResolveMedia uniqueId={uniqueId} />
     case "url":
-      return <ResolveUrl uniqueId={uniqueId} />;
+      return <ResolveUrl original={getJson.data.original} />;
     default:
       return <>Not Found</>;
   }
