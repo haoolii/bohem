@@ -1,8 +1,7 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ORIGIN } from "@/core/env";
 import { resolveGetAction } from "../actions";
-import { ResolvePasswordImage } from "./resolvePasswordImage";
 import { ResolvePasswordMedia } from "./resolvePasswordMedia";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type Props = {
   uniqueId: string;
@@ -24,11 +23,12 @@ export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
           </AlertDescription>
         </Alert>
         <div className="flex flex-col gap-2">
-          <Alert className="flex flex-col">
-            <img src={imageUrl} />
-          </Alert>
+          <video controls className="max-w-full h-auto">
+            <source src={imageUrl} type="video/mp4" />
+            <source src={imageUrl} type="audio/mpeg" />
+            您的瀏覽器不支援視頻播放。
+          </video>
         </div>
-        <pre>{JSON.stringify(getJson, null, 2)}</pre>
       </div>
     );
   }
