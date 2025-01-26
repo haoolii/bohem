@@ -12,7 +12,7 @@ export const ImagePreview: React.FC<Props> = ({ onChange }) => {
   const [file, setFile] = useState<File | null>(null);
 
   const srcObjectURL = useMemo(
-    () => (file ? URL.createObjectURL(file) : ''),
+    () => (file ? URL.createObjectURL(file) : ""),
     [file]
   );
 
@@ -47,7 +47,9 @@ export const ImagePreview: React.FC<Props> = ({ onChange }) => {
             name="file"
             type="file"
             onChange={(e) => {
-              e.target.files && setFile(e.target.files[0]);
+              if (e.target.files && e.target.files.length) {
+                setFile(e.target.files[0]);
+              }
             }}
             accept={allowedFileTypes.join(",")}
           />
