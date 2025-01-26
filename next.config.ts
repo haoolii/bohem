@@ -28,10 +28,10 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/p/:path*",
-        destination: `${process.env.API_URL}/:path*`,
+        destination: `${process.env.TEST_API_URL}/:path*`,
       },
     ];
-    // http://172.234.94.232/api/v2/asset/upload
+    
   },
 };
 
