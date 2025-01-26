@@ -14,7 +14,9 @@ type Props = {
 export const ResolvePasswordImage: React.FC<Props> = ({ uniqueId, prompt }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [postJson, setPostJson] = useState<any>();
+  const [postJson, setPostJson] = useState<{
+    data: { original: string; prompt: string };
+  }>();
 
   const submitPassword = async () => {
     setIsLoading(true);
