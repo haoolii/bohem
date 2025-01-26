@@ -11,7 +11,9 @@ export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
 
   const passwordRequired = getJson?.data?.passwordRequired;
 
-  const imageUrl = `${ORIGIN}/o/${getJson?.data?.original || ""}`;
+  const imageUrl = process.env.VERCEL
+    ? `${ORIGIN}/v/${getJson?.data?.original || ""}`
+    : `${ORIGIN}/o/${getJson?.data?.original || ""}`;
 
   if (!passwordRequired) {
     return (

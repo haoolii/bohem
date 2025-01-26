@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/assets/:path*",
+        source: "/v/:path*",
         destination:
           "https://7gbkcuhyatc9nweq.public.blob.vercel-storage.com/:path*",
       },
