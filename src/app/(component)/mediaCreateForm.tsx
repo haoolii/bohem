@@ -42,7 +42,9 @@ export const MediaCreateForm = () => {
           expireIn,
         });
 
-        setUniqueId(result.data.uniqueId);
+        if (result) {
+          setUniqueId(result.data.uniqueId);
+        }
       }
       setIsLoading(false);
     } catch (err) {
