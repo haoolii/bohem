@@ -1,13 +1,12 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ORIGIN } from "../(core)/env";
+import { ORIGIN } from "@/core/env";
 import { resolveGetAction } from "../actions";
 import { ResolvePasswordImage } from "./resolvePasswordImage";
-import { ResolvePasswordMedia } from "./resolvePasswordMedia";
 
 type Props = {
   uniqueId: string;
 };
-export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
+export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
   const getJson = await resolveGetAction(uniqueId);
 
   const passwordRequired = getJson?.data?.passwordRequired;
@@ -33,6 +32,6 @@ export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
     );
   }
   return (
-    <ResolvePasswordMedia uniqueId={uniqueId} prompt={getJson.data.prompt} />
+    <ResolvePasswordImage uniqueId={uniqueId} prompt={getJson.data.prompt} />
   );
 };

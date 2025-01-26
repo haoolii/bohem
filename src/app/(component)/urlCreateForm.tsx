@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { shortenUrlAction } from "../actions";
 import Link from "next/link";
-import { ORIGIN } from "../(core)/env";
+import { ORIGIN } from "@/core/env";
 
 export const UrlCreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);

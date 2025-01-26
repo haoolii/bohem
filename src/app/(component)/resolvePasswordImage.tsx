@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ORIGIN } from "../(core)/env";
+import { ORIGIN } from "@/core/env";
 import { resolvePostAction } from "../actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
