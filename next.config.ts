@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL,
     ORIGIN: process.env.ORIGIN,
   },
+
   /* config options here */
   async rewrites() {
     return [
