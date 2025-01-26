@@ -26,7 +26,12 @@ const nextConfig: NextConfig = {
         source: "/o/:path*",
         destination: `${process.env.API_URL}/o/:path*`,
       },
+      {
+        source: "/p/:path*",
+        destination: `${process.env.API_URL}/:path*`,
+      },
     ];
+    // http://172.234.94.232/api/v2/asset/upload
   },
 };
 
