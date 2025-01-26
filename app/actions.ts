@@ -1,87 +1,172 @@
 "use server";
 
-export async function create(formData: FormData) {
-  const file = formData.get("file") as Blob;
-  const prompt = formData.get("prompt") as string;
-  const expireIn = formData.get("expireIn") as string;
-  const passwordRequired = formData.get("passwordRequired") as string;
-  const password = formData.get("password") as string;
+import {
+  ImageShortenActionBody,
+  UrlShortenActionBody,
+} from "./(type)/image.types";
 
-  console.log({
-    file,
-    prompt,
-    expireIn,
-    passwordRequired,
-    password,
-  });
-  const data = new FormData();
+export async function shortenImageAction(body: ImageShortenActionBody) {
+  try {
+    const uploadFormData = new FormData();
 
-  data.append("file", file);
+    uploadFormData.append("file", body.file);
 
-  const response = await fetch("https://bohem-api.vercel.app/api/v1/upload", {
-    method: "POST",
-    body: data,
-  });
+    const uploadResponse = await fetch(
+      "http://localhost:1234/api/v2/asset/upload",
+      {
+        method: "POST",
+        body: uploadFormData,
+      }
+    );
 
-  const json = await response.json();
-  // console.log("json", json);
-  const url = json?.data?.blob?.url;
-  const fileName = url.match(/[^/]+$/)?.[0];
-  // console.log("filename", fileName);
-  const payload = {
-    original: fileName,
-    type: "image",
-    passwordRequired: passwordRequired === "on",
-    password,
-    prompt,
-    expireIn: +expireIn,
-  };
+    const uploadJson = await uploadResponse.json();
 
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  const shortenResponse = await fetch(
-    "https://bohem-api.vercel.app/api/v1/shorten",
-    {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(payload),
+    if (
+      !uploadJson.data ||
+      !uploadJson.data.success ||
+      !uploadJson.data.success.length
+    ) {
+      throw new Error("upload failed");
     }
-  );
 
-  console.log('shortenResponse', shortenResponse)
+    const pathname = uploadJson.data.success[0].pathname;
+
+    console.log("pathname", pathname);
+
+    const shortenPayload = {
+      original: pathname,
+      type: body.type,
+      passwordRequired: body.passwordRequired,
+      password: body.password,
+      prompt: body.prompt,
+      expireIn: body.expireIn,
+    };
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    const shortenResponse = await fetch(
+      "http://localhost:1234/api/v2/shorten",
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify(shortenPayload),
+      }
+    );
+
+    const shortenJson = await shortenResponse.json();
+
+    return shortenJson;
+  } catch (err) {
+    console.log("err", err);
+  }
+}
+
+export async function shortenMediaAction(body: ImageShortenActionBody) {
+  try {
+    const uploadFormData = new FormData();
+
+    uploadFormData.append("file", body.file);
+
+    const uploadResponse = await fetch(
+      "http://localhost:1234/api/v2/asset/upload",
+      {
+        method: "POST",
+        body: uploadFormData,
+      }
+    );
+
+    const uploadJson = await uploadResponse.json();
+
+    if (
+      !uploadJson.data ||
+      !uploadJson.data.success ||
+      !uploadJson.data.success.length
+    ) {
+      throw new Error("upload failed");
+    }
+
+    const pathname = uploadJson.data.success[0].pathname;
+
+    console.log("pathname", pathname);
+
+    const shortenPayload = {
+      original: pathname,
+      type: body.type,
+      passwordRequired: body.passwordRequired,
+      password: body.password,
+      prompt: body.prompt,
+      expireIn: body.expireIn,
+    };
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    const shortenResponse = await fetch(
+      "http://localhost:1234/api/v2/shorten",
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify(shortenPayload),
+      }
+    );
+
+    const shortenJson = await shortenResponse.json();
+
+    return shortenJson;
+  } catch (err) {
+    console.log("err", err);
+  }
+}
+
+export async function shortenUrlAction(body: UrlShortenActionBody) {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const shortenPayload = {
+    original: body.url,
+    type: body.type,
+    passwordRequired: false,
+    password: "",
+    prompt: "",
+    expireIn: body.expireIn,
+  };
+  const shortenResponse = await fetch("http://localhost:1234/api/v2/shorten", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(shortenPayload),
+  });
 
   const shortenJson = await shortenResponse.json();
 
   return shortenJson;
 }
 
-export async function getResolve(uniqueId: string) {
-  const response = await fetch(
-    `https://bohem-api.vercel.app/api/v1/resolve/${uniqueId}`,
-    {
-      method: "GET",
-    }
+export async function resolveGetAction(uniqueId: string) {
+  const resolveResponse = await fetch(
+    `http://localhost:1234/api/v2/resolve/${uniqueId}`
   );
-  const json = await response.json();
 
-  return json;
+  const resolveJson = await resolveResponse.json();
+
+  return resolveJson;
 }
 
-export async function postResolve(uniqueId: string, password: string) {
-  const myHeaders = new Headers();
+export async function resolvePostAction(uniqueId: string, password: string) {
+  const headers = new Headers();
 
-  myHeaders.append("Content-Type", "application/json");
+  headers.append("Content-Type", "application/json");
 
-  const response = await fetch(
-    `https://bohem-api.vercel.app/api/v1/resolve/${uniqueId}`,
+  const resolveResponse = await fetch(
+    `http://localhost:1234/api/v2/resolve/${uniqueId}`,
     {
       method: "POST",
-      headers: myHeaders,
+      headers,
       body: JSON.stringify({ password }),
     }
   );
-  const json = await response.json();
 
-  return json;
+  const resolveJson = await resolveResponse.json();
+
+  return resolveJson;
 }
