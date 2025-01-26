@@ -66,49 +66,54 @@ export async function shortenMediaAction(body: MediaShortenActionBody) {
 
     uploadFormData.append("file", body.file);
 
-    const uploadResponse = await fetch(`${API_URL}/api/v2/asset/upload`, {
-      method: "POST",
-      body: uploadFormData,
-    });
-
-    const uploadJson = await uploadResponse.json();
-
-    if (
-      !uploadJson.data ||
-      !uploadJson.data.success ||
-      !uploadJson.data.success.length
-    ) {
-      throw new Error("upload failed");
-    }
-
-    const pathname = uploadJson.data.success[0].pathname;
-
-    console.log("pathname", pathname);
-
-    const shortenPayload = {
-      original: pathname,
-      type: body.type,
-      passwordRequired: body.passwordRequired,
-      password: body.password,
-      prompt: body.prompt,
-      expireIn: body.expireIn,
-    };
-
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-
-    const shortenResponse = await fetch(
-      `${API_URL}/api/v2/shorten`,
-      {
-        method: "POST",
-        headers,
-        body: JSON.stringify(shortenPayload),
+    return {
+      data: {
+        uniqueId: "test",
       }
-    );
+    }
+    // const uploadResponse = await fetch(`${API_URL}/api/v2/asset/upload`, {
+    //   method: "POST",
+    //   body: uploadFormData,
+    // });
 
-    const shortenJson = await shortenResponse.json();
+    // const uploadJson = await uploadResponse.json();
 
-    return shortenJson;
+    // if (
+    //   !uploadJson.data ||
+    //   !uploadJson.data.success ||
+    //   !uploadJson.data.success.length
+    // ) {
+    //   throw new Error("upload failed");
+    // }
+
+    // const pathname = uploadJson.data.success[0].pathname;
+
+    // console.log("pathname", pathname);
+
+    // const shortenPayload = {
+    //   original: pathname,
+    //   type: body.type,
+    //   passwordRequired: body.passwordRequired,
+    //   password: body.password,
+    //   prompt: body.prompt,
+    //   expireIn: body.expireIn,
+    // };
+
+    // const headers = new Headers();
+    // headers.append("Content-Type", "application/json");
+
+    // const shortenResponse = await fetch(
+    //   `${API_URL}/api/v2/shorten`,
+    //   {
+    //     method: "POST",
+    //     headers,
+    //     body: JSON.stringify(shortenPayload),
+    //   }
+    // );
+
+    // const shortenJson = await shortenResponse.json();
+
+    // return shortenJson;
   } catch (err) {
     console.log("err", err);
   }
