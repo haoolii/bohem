@@ -1,4 +1,4 @@
-import { API_URL, ORIGIN } from "@/core/env";
+import { ORIGIN } from "@/core/env";
 
 type PostShortenUrlBody = {
   content: string;

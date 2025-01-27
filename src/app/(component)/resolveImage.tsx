@@ -12,9 +12,6 @@ export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
   const passwordRequired = getJson?.data?.passwordRequired;
 
   if (!passwordRequired) {
-    let imageUrl = getJson?.data?.originals;
-    // const  = `${ORIGIN}/p/${getJson?.data?.original || ""}`
-
     return (
       <div className="flex flex-col gap-4">
         <Alert>
