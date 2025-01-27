@@ -1,8 +1,12 @@
 import { redirect } from "next/navigation";
 
 type Props = {
-  original: string;
+  originals: Array<{ content: string }>;
 };
-export const ResolveUrl: React.FC<Props> = async ({ original }) => {
-  redirect(original);
+export const ResolveUrl: React.FC<Props> = async ({ originals }) => {
+  if (originals && originals.length) {
+    redirect(originals[0].content);
+  }
+
+  return <></>;
 };

@@ -1,17 +1,15 @@
-import { ORIGIN } from "@/core/env";
-import { resolveGetAction } from "../actions";
-import { ResolvePasswordMedia } from "./resolvePasswordMedia";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ORIGIN } from "@/core/env";
+import { GetShortenAction } from "../actions";
+import { ResolvePasswordMedia } from "./resolvePasswordMedia";
 
 type Props = {
   uniqueId: string;
 };
 export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
-  const getJson = await resolveGetAction(uniqueId);
+  const getJson = await GetShortenAction(uniqueId);
 
   const passwordRequired = getJson?.data?.passwordRequired;
-
-  const imageUrl = `${ORIGIN}/o/${getJson?.data?.original || ""}`;
 
   if (!passwordRequired) {
     return (
@@ -23,11 +21,18 @@ export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
           </AlertDescription>
         </Alert>
         <div className="flex flex-col gap-2">
-          <video controls className="max-w-full h-auto">
-            <source src={imageUrl} type="video/mp4" />
-            <source src={imageUrl} type="audio/mpeg" />
-            您的瀏覽器不支援視頻播放。
-          </video>
+          {getJson?.data?.originals?.map((original: { content: string }) => {
+            const mediaUrl = `${ORIGIN}/p/o/${original?.content || ""}`;
+            return (
+              <Alert className="flex flex-col" key={mediaUrl}>
+                <video controls className="max-w-full h-auto">
+                  <source src={mediaUrl} type="video/mp4" />
+                  <source src={mediaUrl} type="audio/mpeg" />
+                  您的瀏覽器不支援視頻播放。
+                </video>
+              </Alert>
+            );
+          })}
         </div>
       </div>
     );

@@ -1,21 +1,20 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ORIGIN } from "@/core/env";
-import { resolveGetAction } from "../actions";
+import { GetShortenAction } from "../actions";
 import { ResolvePasswordImage } from "./resolvePasswordImage";
 
 type Props = {
   uniqueId: string;
 };
 export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
-  const getJson = await resolveGetAction(uniqueId);
+  const getJson = await GetShortenAction(uniqueId);
 
   const passwordRequired = getJson?.data?.passwordRequired;
 
-  const imageUrl = process.env.VERCEL
-    ? `${ORIGIN}/v/${getJson?.data?.original || ""}`
-    : `${ORIGIN}/o/${getJson?.data?.original || ""}`;
-
   if (!passwordRequired) {
+    let imageUrl = getJson?.data?.originals;
+    // const  = `${ORIGIN}/p/${getJson?.data?.original || ""}`
+
     return (
       <div className="flex flex-col gap-4">
         <Alert>
@@ -25,15 +24,21 @@ export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
           </AlertDescription>
         </Alert>
         <div className="flex flex-col gap-2">
-          <Alert className="flex flex-col">
-            <img src={imageUrl} />
-          </Alert>
+          {getJson?.data?.originals?.map((original: { content: string }) => {
+            const imageUrl = `${ORIGIN}/p/o/${original?.content || ""}`;
+            return (
+              <Alert className="flex flex-col" key={imageUrl}>
+                <img src={imageUrl} />
+              </Alert>
+            );
+          })}
         </div>
-        <pre>{JSON.stringify(getJson, null, 2)}</pre>
       </div>
     );
   }
   return (
-    <ResolvePasswordImage uniqueId={uniqueId} prompt={getJson.data.prompt} />
+    <>
+      <ResolvePasswordImage uniqueId={uniqueId} prompt={getJson.data.prompt} />
+    </>
   );
 };

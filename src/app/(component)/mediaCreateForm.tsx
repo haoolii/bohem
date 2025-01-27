@@ -1,4 +1,7 @@
 "use client";
+
+import "dotenv/config";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,16 +13,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { shortenMediaAction } from "../actions";
+import { ExpireInList } from "@/core/constant";
+import { postShortenMedia } from "../requests";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { ORIGIN } from "@/core/env";
-import { ExpireInList } from '@/core/constant';
 import Link from "next/link";
 import { MediaPreview } from "./mediaPreview";
 export const MediaCreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [file, setFile] = useState<File | null>();
+  const [files, setFiles] = useState<File[]>([]);
   const [passwordRequired, setPasswordRequired] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [expireIn, setExpireIn] = useState<number>(24 * 60 * 60 * 1000);
@@ -28,13 +31,13 @@ export const MediaCreateForm = () => {
   const [uniqueId, setUniqueId] = useState<string>("");
 
   const submit = async () => {
-    if (!file) return;
+    if (!files.length) return;
 
     try {
       setIsLoading(true);
-      if (file) {
-        const result = await shortenMediaAction({
-          file,
+      if (files) {
+        const result = await postShortenMedia({
+          files: files,
           type: "media",
           prompt,
           passwordRequired,
@@ -42,9 +45,7 @@ export const MediaCreateForm = () => {
           expireIn,
         });
 
-        if (result) {
-          setUniqueId(result.data.uniqueId);
-        }
+        setUniqueId(result.data.uniqueId);
       }
       setIsLoading(false);
     } catch (err) {
@@ -58,7 +59,11 @@ export const MediaCreateForm = () => {
       <div className="flex flex-col gap-4">
         <MediaPreview
           onChange={(file) => {
-            setFile(file);
+            if (file) {
+              setFiles([file]);
+            } else {
+              setFiles([]);
+            }
           }}
         />
         <div className="flex">
@@ -96,7 +101,7 @@ export const MediaCreateForm = () => {
           <Textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="請輸入圖片說明內容"
+            placeholder="請輸入影片音訊說明內容"
             rows={4}
           />
         </label>
@@ -125,7 +130,7 @@ export const MediaCreateForm = () => {
         {uniqueId && (
           <div className="py-8 flex flex-col items-center gap-2 mt-10 border-t-2">
             <h2 className="font-semibold text-2xl">產生短網址成功</h2>
-            <h4>您的影片、音訊網址</h4>
+            <h4>您的影片音訊短網址</h4>
             <Link
               target="_blank"
               href={`${ORIGIN}/${uniqueId}`}

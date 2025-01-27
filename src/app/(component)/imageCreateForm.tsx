@@ -15,14 +15,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ExpireInList } from "@/core/constant";
-import { shortenImageAction } from "../actions";
+import { postShortenImage } from "../requests";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { ORIGIN } from "@/core/env";
 import Link from "next/link";
 export const ImageCreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [file, setFile] = useState<File | null>();
+  const [files, setFiles] = useState<File[]>([]);
   const [passwordRequired, setPasswordRequired] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [expireIn, setExpireIn] = useState<number>(24 * 60 * 60 * 1000);
@@ -31,13 +31,13 @@ export const ImageCreateForm = () => {
   const [uniqueId, setUniqueId] = useState<string>("");
 
   const submit = async () => {
-    if (!file) return;
+    if (!files.length) return;
 
     try {
       setIsLoading(true);
-      if (file) {
-        const result = await shortenImageAction({
-          file,
+      if (files) {
+        const result = await postShortenImage({
+          files: files,
           type: "image",
           prompt,
           passwordRequired,
@@ -59,7 +59,11 @@ export const ImageCreateForm = () => {
       <div className="flex flex-col gap-4">
         <ImagePreview
           onChange={(file) => {
-            setFile(file);
+            if (file) {
+              setFiles([file]);
+            } else {
+              setFiles([]);
+            }
           }}
         />
         <div className="flex">

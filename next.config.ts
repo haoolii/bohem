@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/p/:path*",
-        destination: `${process.env.TEST_API_URL}/:path*`,
+        destination: `${process.env.API_URL}/:path*`,
       },
     ];
     

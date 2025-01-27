@@ -1,11 +1,14 @@
 "use client";
+import { useState } from "react";
+import { ORIGIN } from "@/core/env";
+import Link from "next/link";
 
+// components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { shortenUrlAction } from "../actions";
-import Link from "next/link";
-import { ORIGIN } from "@/core/env";
+
+// actions
+import { postShortenUrl } from "../requests";
 
 export const UrlCreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,9 +18,18 @@ export const UrlCreateForm = () => {
   const submit = async () => {
     try {
       setIsLoading(true);
+
       if (!url) return;
-      const result = await shortenUrlAction({ url, type: "url", expireIn: 0 });
-      setUniqueId(result.data.uniqueId);
+
+      const json = await postShortenUrl({
+        content: url,
+        type: "url",
+        expireIn: 0,
+      });
+
+      const uniqueId = json?.data?.uniqueId;
+
+      setUniqueId(uniqueId);
     } catch (error) {
       console.error(error);
     } finally {

@@ -1,4 +1,4 @@
-import { resolveGetAction } from "../actions";
+import { GetShortenAction } from "../actions";
 import { ResolveImage } from "../(component)/resolveImage";
 import { ResolveUrl } from "../(component)/resolveUrl";
 import { ResolveMedia } from "../(component)/resolveMedia";
@@ -12,15 +12,20 @@ export default async function Unique({
 
   if (!uniqueId) return <></>;
 
-  const getJson = await resolveGetAction(uniqueId);
+  const getJson = await GetShortenAction(uniqueId);
 
+  // return <>
+  //   <pre>
+  //     {JSON.stringify(getJson, null, 2)}
+  //   </pre>
+  // </>
   switch (getJson?.data?.type) {
     case "image":
       return <ResolveImage uniqueId={uniqueId} />;
     case "media":
       return <ResolveMedia uniqueId={uniqueId} />
     case "url":
-      return <ResolveUrl original={getJson.data.original} />;
+      return <ResolveUrl originals={getJson.data.originals} />;
     default:
       return <>Not Found</>;
   }

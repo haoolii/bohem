@@ -18,7 +18,7 @@ export const MediaPreview: React.FC<Props> = ({ onChange }) => {
 
   useEffect(() => {
     onChange(file);
-  }, [file, onChange]);
+  }, [file]);
 
   return (
     <div>
