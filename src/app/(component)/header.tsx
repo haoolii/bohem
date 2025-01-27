@@ -29,9 +29,6 @@ export const Header = () => {
             <Link href={"/image"} className="p-2">
               照片縮網址
             </Link>
-            <a href="#" className="p-2">
-              隱私權政策
-            </a>
           </nav>
         </div>
         <div className="md:hidden">
@@ -45,7 +42,7 @@ export const Header = () => {
               <SheetHeader>
                 <SheetTitle>Bohem</SheetTitle>
                 <SheetDescription>
-                  <nav className="flex gap-4 items-center">
+                  <nav className="flex gap-4 items-center justify-center">
                     <Link href={"/url"} className="p-2">
                       縮短網址
                     </Link>
@@ -55,9 +52,6 @@ export const Header = () => {
                     <Link href={"/image"} className="p-2">
                       照片縮網址
                     </Link>
-                    <a href="#" className="p-2">
-                      隱私權政策
-                    </a>
                   </nav>
                 </SheetDescription>
               </SheetHeader>
