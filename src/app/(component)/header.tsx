@@ -16,9 +16,9 @@ export const Header = () => {
     <header className="border-b">
       <div className="max-w-5xl mx-auto flex justify-between gap-4 items-center px-2">
         <div className="flex gap-4 items-center">
-          <a href="#" className="p-2 font-semibold text-2xl">
+          <Link href={"/"} className="p-2 font-semibold text-2xl">
             Bohem
-          </a>
+          </Link>
           <nav className="hidden md:flex gap-4 items-center">
             <Link href={"/url"} className="p-2">
               縮短網址
@@ -40,7 +40,9 @@ export const Header = () => {
             </SheetTrigger>
             <SheetContent side="top">
               <SheetHeader>
-                <SheetTitle>Bohem</SheetTitle>
+                <SheetTitle>
+                  <Link href={"/"}>Bohem</Link>
+                </SheetTitle>
                 <SheetDescription>
                   <nav className="flex gap-4 items-center justify-center">
                     <Link href={"/url"} className="p-2">
