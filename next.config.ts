@@ -5,11 +5,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "100mb",
-    },
-  },
+  reactStrictMode: false,
+  // experimental: {
+  //   serverActions: {
+  //     bodySizeLimit: "100mb",
+  //   },
+  // },
   env: {
     API_URL: process.env.API_URL,
     ORIGIN: process.env.ORIGIN,

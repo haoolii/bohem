@@ -1,7 +1,8 @@
 import { GetShortenAction } from "../actions";
-import { ResolveImage } from "../(component)/resolveImage";
-import { ResolveUrl } from "../(component)/resolveUrl";
-import { ResolveMedia } from "../(component)/resolveMedia";
+import { ResolveImage } from "@/feature/image/components/resolveImage";
+import { ResolveUrl } from "@/feature/url/components/resolveUrl";
+import { ResolveMedia } from "@/feature/media/components/resolveMedia";
+import { Code } from "@/core/code";
 
 export default async function Unique({
   params,
@@ -14,16 +15,15 @@ export default async function Unique({
 
   const getJson = await GetShortenAction(uniqueId);
 
-  // return <>
-  //   <pre>
-  //     {JSON.stringify(getJson, null, 2)}
-  //   </pre>
-  // </>
+  if (getJson.code === Code.RECORD_EXPIRED) {
+    return <div>Expired</div>;
+  }
+  console.log('getJson', getJson)
   switch (getJson?.data?.type) {
     case "image":
       return <ResolveImage uniqueId={uniqueId} />;
     case "media":
-      return <ResolveMedia uniqueId={uniqueId} />
+      return <ResolveMedia uniqueId={uniqueId} />;
     case "url":
       return <ResolveUrl originals={getJson.data.originals} />;
     default:

@@ -1,6 +1,7 @@
+
+import { GetShortenAction } from "@/app/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ORIGIN } from "@/core/env";
-import { GetShortenAction } from "../actions";
 import { ResolvePasswordMedia } from "./resolvePasswordMedia";
 
 type Props = {

@@ -9,7 +9,7 @@ export async function postShortenUrl(body: PostShortenUrlBody) {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  const shortenResponse = await fetch(`${ORIGIN}/p/api/v2/shorten/url`, {
+  const shortenResponse = await fetch(`${ORIGIN}/p/api/shorten/url`, {
     method: "POST",
     headers,
     body: JSON.stringify(body),
@@ -44,7 +44,7 @@ export async function postShortenImage(body: PostShortenImageBody) {
     formData.append("files", file);
   });
 
-  const shortenResponse = await fetch(`${ORIGIN}/p/api/v2/shorten/image`, {
+  const shortenResponse = await fetch(`${ORIGIN}/p/api/shorten/image`, {
     method: "POST",
     body: formData,
   });
@@ -78,7 +78,7 @@ export async function postShortenMedia(body: PostShortenMediaBody) {
     formData.append("files", file);
   });
 
-  const shortenResponse = await fetch(`${ORIGIN}/p/api/v2/shorten/media`, {
+  const shortenResponse = await fetch(`${ORIGIN}/p/api/shorten/media`, {
     method: "POST",
     body: formData,
   });
@@ -93,7 +93,7 @@ export async function getShorten(uniqueId: string) {
   headers.append("Content-Type", "application/json");
 
   const shortenResponse = await fetch(
-    `${ORIGIN}/p/api/v2/shorten/${uniqueId}`,
+    `${ORIGIN}/p/api/shorten/${uniqueId}`,
     {
       method: "GET",
       headers,
@@ -110,7 +110,7 @@ export async function postShorten(uniqueId: string, password: string) {
   headers.append("Content-Type", "application/json");
 
   const shortenResponse = await fetch(
-    `${ORIGIN}/p/api/v2/shorten/${uniqueId}`,
+    `${ORIGIN}/p/api/shorten/${uniqueId}`,
     {
       method: "POST",
       headers,

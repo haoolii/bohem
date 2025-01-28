@@ -1,11 +1,25 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 const API_URL = process.env.API_URL;
 
 export async function GetShortenAction(uniqueId: string) {
-  const resolveResponse = await fetch(`${API_URL}/api/v2/shorten/${uniqueId}`);
+  try {
+    const currentCookies = await cookies();
 
-  const resolveJson = await resolveResponse.json();
+    const resolveResponse = await fetch(`${API_URL}/api/shorten/${uniqueId}`, {
+      headers: {
+        Cookie: `Authorization=${
+          currentCookies.get("Authorization")?.value || ""
+        }`,
+      },
+    });
 
-  return resolveJson;
+    const resolveJson = await resolveResponse.json();
+
+    return resolveJson;
+  } catch (err) {
+    return null;
+  }
 }

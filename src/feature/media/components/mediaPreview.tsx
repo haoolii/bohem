@@ -1,14 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { FilePlusIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
-const allowedFileTypes = [".jpg", ".jpeg", ".png", ".gif"];
+const allowedFileTypes = [".mp3", ".mp4"];
 
 type Props = {
   onChange: (file: File | null) => void;
 };
-export const ImagePreview: React.FC<Props> = ({ onChange }) => {
+export const MediaPreview: React.FC<Props> = ({ onChange }) => {
+  const t = useTranslations("Media feature");
+
   const [file, setFile] = useState<File | null>(null);
 
   const srcObjectURL = useMemo(
@@ -24,9 +27,13 @@ export const ImagePreview: React.FC<Props> = ({ onChange }) => {
     <div>
       {file ? (
         <div className="mt-4 w-full flex flex-col items-center gap-4 justify-center">
-          <img src={srcObjectURL} alt="Preview" className="max-w-full h-auto" />
+          <video controls className="max-w-full h-auto">
+            <source src={srcObjectURL} type="video/mp4" />
+            <source src={srcObjectURL} type="audio/mpeg" />
+            {t("browser not support")}
+          </video>
           <Button variant="destructive" onClick={() => setFile(null)}>
-            重新選擇
+            {t("reselect file")}
           </Button>
         </div>
       ) : (
@@ -34,7 +41,7 @@ export const ImagePreview: React.FC<Props> = ({ onChange }) => {
           <div className="border border-gray-300 p-10 rounded">
             <div className="flex justify-center items-center gap-2">
               <FilePlusIcon width={24} height={24} />
-              <span>上傳圖片</span>
+              <span>{t("upload placeholder")}</span>
               <span className="text-sm font-medium text-gray-500">
                 {allowedFileTypes.map((type) => (
                   <span key={type}>{type}</span>

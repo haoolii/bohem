@@ -1,5 +1,44 @@
 {
-    "HomePage": {
-      "title": "Hello world!"
-    }
+  "Metadata": {
+    "title": "URL shortening service offering video shortening, image shortening, image uploads, video uploads, and photo uploads, highly recommended by many.",
+    "description": "URL shortening service offering video shortening, image shortening, image uploads, video uploads, and photo uploads, highly recommended by many."
+  },
+  "Shorten URL": "Shorten URL",
+  "Shorten video link": "Shorten video link",
+  "Shorten image link": "Shorten image link",
+  "URL feature": {
+    "title": "Shorten URL",
+    "url input placeholder": "Enter the URL you want to shorten.",
+    "submit": "Shorten URL",
+    "submit loading": "Shortening..."
+  },
+  "Media feature": {
+    "title": "Shorten video link",
+    "upload placeholder": "Upload video, audio",
+    "require password label": "Require password",
+    "today date": "Today's date",
+    "password input placeholder": "Please enter password",
+    "prompt label": "Description",
+    "prompt input placeholder": "Please enter video/audio description",
+    "expire label": "Expiration time",
+    "submit": "Upload",
+    "submit loading": "Uploading...",
+    "browser not support": "Your browser does not support video playback",
+    "reselect file": "Reselect file"
+  },
+  "Image feature": {
+    "title": "Shorten image link",
+
+    "upload placeholder": "Upload video, audio",
+    "require password label": "Require password",
+    "today date": "Today's date",
+    "password input placeholder": "Please enter password",
+    "prompt label": "Description",
+    "prompt input placeholder": "Please enter video/audio description",
+    "expire label": "Expiration time",
+    "submit": "Upload",
+    "submit loading": "Uploading...",
+    "browser not support": "Your browser does not support video playback",
+    "reselect file": "Reselect file"
   }
+}

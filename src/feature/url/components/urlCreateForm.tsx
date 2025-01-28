@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 // actions
-import { postShortenUrl } from "../requests";
+import { useTranslations } from "next-intl";
+import { postShortenUrl } from "@/app/requests";
 
 export const UrlCreateForm = () => {
+  const t = useTranslations("URL feature");
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState<string | null>();
   const [uniqueId, setUniqueId] = useState<string>("");
@@ -38,10 +40,9 @@ export const UrlCreateForm = () => {
   };
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-10">縮短網址</h1>
       <div className="flex flex-col gap-4">
         <Input
-          placeholder="輸入要縮短的網址"
+          placeholder={t("url input placeholder")}
           onChange={(e) => setUrl(e.target.value)}
         />
         <Button
@@ -49,11 +50,11 @@ export const UrlCreateForm = () => {
           onClick={() => submit()}
           disabled={isLoading}
         >
-          {isLoading ? "縮短中" : "縮短網址"}
+          {isLoading ? t("submit loading") : t("submit")}
         </Button>
       </div>
       {uniqueId && (
-        <div className="py-8 flex flex-col items-center gap-2 mt-10 border-t-2">
+        <div className="py-8 flex flex-col items-center gap-<2 mt-10 border-t-2">
           <h2 className="font-semibold text-2xl">產生短網址成功</h2>
           <h4>您的短網址</h4>
           <Link

@@ -5,13 +5,13 @@ import { ORIGIN } from "@/core/env";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { postShorten } from "../requests";
+import { postShorten } from "@/app/requests";
 
 type Props = {
   uniqueId: string;
   prompt: string;
 };
-export const ResolvePasswordMedia: React.FC<Props> = ({ uniqueId, prompt }) => {
+export const ResolvePasswordImage: React.FC<Props> = ({ uniqueId, prompt }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isPass, setIsPass] = useState(false);
@@ -37,14 +37,10 @@ export const ResolvePasswordMedia: React.FC<Props> = ({ uniqueId, prompt }) => {
       {isPass ? (
         <div>
           {postJson?.data?.originals?.map((original: { content: string }) => {
-            const mediaUrl = `${ORIGIN}/p/o/${original?.content || ""}`;
+            const imageUrl = `${ORIGIN}/p/o/${original?.content || ""}`;
             return (
-              <Alert className="flex flex-col" key={mediaUrl}>
-                <video controls className="max-w-full h-auto">
-                  <source src={mediaUrl} type="video/mp4" />
-                  <source src={mediaUrl} type="audio/mpeg" />
-                  您的瀏覽器不支援視頻播放。
-                </video>
+              <Alert className="flex flex-col" key={imageUrl}>
+                <img src={imageUrl} />
               </Alert>
             );
           })}

@@ -1,5 +1,43 @@
 {
-    "HomePage": {
-      "title": "你好"
-    }
+  "Metadata": {
+    "title": "縮短網址 提供 縮影片、縮圖片、上傳圖片、上傳影片、上傳照片，最多人推薦",
+    "description": "縮短網址 提供 縮影片、縮圖片、上傳圖片、上傳影片、上傳照片，最多人推薦"
+  },
+  "Shorten URL": "縮短網址",
+  "Shorten video link": "影片縮網址",
+  "Shorten image link": "圖片縮網址",
+  "URL feature": {
+    "title": "縮短網址",
+    "url input placeholder": "輸入要縮短的網址",
+    "submit": "縮短網址",
+    "submit loading": "縮短中"
+  },
+  "Media feature": {
+    "title": "影片音訊短網址",
+    "upload placeholder": "上傳影片、音訊",
+    "require password label": "需要密碼",
+    "today date": "今日日期",
+    "password input placeholder": "請輸入密碼",
+    "prompt label": "說明內容",
+    "prompt input placeholder": "請輸入影片音訊說明內容",
+    "expire label": "有效時間",
+    "submit": "上傳",
+    "submit loading": "上傳中",
+    "browser not support": "您的瀏覽器不支援視頻播放",
+    "reselect file": "重新選擇"
+  },
+  "Image feature": {
+    "title": "圖片縮網址",
+
+    "upload placeholder": "上傳圖片",
+    "require password label": "需要密碼",
+    "today date": "今日日期",
+    "password input placeholder": "請輸入密碼",
+    "prompt label": "說明內容",
+    "prompt input placeholder": "請輸入圖片說明內容",
+    "expire label": "有效時間",
+    "submit": "上傳",
+    "submit loading": "上傳中",
+    "reselect file": "重新選擇"
   }
+}

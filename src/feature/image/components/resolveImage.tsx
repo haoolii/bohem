@@ -1,6 +1,6 @@
+import { GetShortenAction } from "@/app/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ORIGIN } from "@/core/env";
-import { GetShortenAction } from "../actions";
 import { ResolvePasswordImage } from "./resolvePasswordImage";
 
 type Props = {
@@ -10,8 +10,9 @@ export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
   const getJson = await GetShortenAction(uniqueId);
 
   const passwordRequired = getJson?.data?.passwordRequired;
+  const originals = getJson?.data?.originals;
 
-  if (!passwordRequired) {
+  if (!passwordRequired || (passwordRequired && originals)) {
     return (
       <div className="flex flex-col gap-4">
         <Alert>
@@ -34,8 +35,6 @@ export const ResolveImage: React.FC<Props> = async ({ uniqueId }) => {
     );
   }
   return (
-    <>
-      <ResolvePasswordImage uniqueId={uniqueId} prompt={getJson.data.prompt} />
-    </>
+    <ResolvePasswordImage uniqueId={uniqueId} prompt={getJson.data.prompt} />
   );
 };

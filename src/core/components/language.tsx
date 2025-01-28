@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-// import Cookies from "js-cookie";
 
-export default function LanguageSwitcher() {
+export default function Language() {
   const router = useRouter();
 
   const changeLocale = (locale: string) => {

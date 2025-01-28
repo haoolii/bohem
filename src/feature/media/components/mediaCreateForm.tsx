@@ -14,13 +14,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ExpireInList } from "@/core/constant";
-import { postShortenMedia } from "../requests";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { ORIGIN } from "@/core/env";
 import Link from "next/link";
-import { MediaPreview } from "./mediaPreview";
+import { useTranslations } from "next-intl";
+import { MediaPreview } from "@/feature/media/components/mediaPreview";
+import { postShortenMedia } from "@/app/requests";
+
 export const MediaCreateForm = () => {
+  const t = useTranslations("Media feature");
+
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [passwordRequired, setPasswordRequired] = useState<boolean>(false);
@@ -55,7 +59,6 @@ export const MediaCreateForm = () => {
   };
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-10">影片音訊短網址</h1>
       <div className="flex flex-col gap-4">
         <MediaPreview
           onChange={(file) => {
@@ -72,7 +75,7 @@ export const MediaCreateForm = () => {
               checked={passwordRequired}
               onCheckedChange={(e) => setPasswordRequired(!!e.valueOf())}
             />
-            <span>需要密碼</span>
+            <span>{t("require password label")}</span>
           </label>
         </div>
         {passwordRequired && (
@@ -86,27 +89,27 @@ export const MediaCreateForm = () => {
                   setPassword(dayjs().format("MMDD"));
                 }}
               >
-                今日日期
+                {t("today date")}
               </Button>
             </div>
             <Input
-              placeholder={"請輸入密碼"}
+              placeholder={t("password input placeholder")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         )}
         <label className="flex flex-col gap-2">
-          <span>說明內容</span>
+          <span>{t("prompt label")}</span>
           <Textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="請輸入影片音訊說明內容"
+            placeholder={t("prompt input placeholder")}
             rows={4}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span>有效時間</span>
+          <span>{t("expire label")}</span>
           <Select
             value={`${expireIn}`}
             onValueChange={(value) => setExpireIn(Number(value))}
@@ -124,7 +127,7 @@ export const MediaCreateForm = () => {
           </Select>
         </label>
         <Button className="w-full" onClick={submit} disabled={isLoading}>
-          {isLoading ? "上傳中.." : "上傳"}
+          {isLoading ? t("submit loading") : t("submit")}
         </Button>
 
         {uniqueId && (
