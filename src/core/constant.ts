@@ -1,9 +1,5 @@
 export const ExpireInList = [
   {
-    label: "1 天",
-    value: 24 * 60 * 60,
-  },
-  {
     label: "1 分鐘",
     value: 1 * 60,
   },
@@ -26,6 +22,10 @@ export const ExpireInList = [
   {
     label: "12 小時",
     value: 12 * 60 * 60,
+  },
+  {
+    label: "1 天",
+    value: 24 * 60 * 60,
   },
   {
     label: "3 天",

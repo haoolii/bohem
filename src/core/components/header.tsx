@@ -16,7 +16,7 @@ import Language from "./language";
 export const Header = () => {
   const t = useTranslations();
   return (
-    <header className="border-b">
+    <header>
       <div className="max-w-5xl mx-auto flex justify-between gap-4 items-center px-2">
         <div className="flex gap-4 items-center">
           <Link href={"/"} className="p-2 font-semibold text-2xl">

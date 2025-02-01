@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { FilePlusIcon } from "@radix-ui/react-icons";
+import { FilePlusIcon, ImageIcon, VideoIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
@@ -38,11 +38,18 @@ export const MediaPreview: React.FC<Props> = ({ onChange }) => {
         </div>
       ) : (
         <label className="cursor-pointer">
-          <div className="border border-gray-300 p-10 rounded">
-            <div className="flex justify-center items-center gap-2">
-              <FilePlusIcon width={24} height={24} />
-              <span>{t("upload placeholder")}</span>
-              <span className="text-sm font-medium text-gray-500">
+          <div className="border border-dashed border-secondary-foreground bg-secondary pb-8 pt-10 rounded">
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex gap-2 items-center mb-4">
+                <VideoIcon width={24} height={24} />
+                <span className="font-semibold text-secondary-foreground">
+                  {t("upload placeholder")}
+                </span>
+              </div>
+              <span className="text-sm font-medium text-secondary-foreground">
+                <span>拖曳或點選即可上傳</span>
+              </span>
+              <span className="text-secondary-foreground/40 text-sm mt-1">
                 {allowedFileTypes.map((type) => (
                   <span key={type}>{type}</span>
                 ))}
