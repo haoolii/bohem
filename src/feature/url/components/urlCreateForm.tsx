@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 import { ORIGIN } from "@/core/env";
+import { useTranslations } from "next-intl";
 
 // components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CopyIcon, ReloadIcon } from "@radix-ui/react-icons";
 
-// actions
-import { useTranslations } from "next-intl";
-import { postShortenUrl } from "@/app/requests";
+// requests
+import { postShortenUrl } from "@/core/requests";
 
 export const UrlCreateForm = () => {
   const t = useTranslations("URL feature");

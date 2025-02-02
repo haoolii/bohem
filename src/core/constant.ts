@@ -48,3 +48,9 @@ export const ExpireInList = [
     value: 0,
   },
 ];
+
+
+export const AllowedFileTypes = [".mp3", ".mp4"];
+
+
+

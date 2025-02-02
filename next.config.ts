@@ -20,11 +20,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/v/:path*",
-        destination:
-          "https://7gbkcuhyatc9nweq.public.blob.vercel-storage.com/:path*",
-      },
-      {
         source: "/o/:path*",
         destination: `${process.env.API_URL}/o/:path*`,
       },

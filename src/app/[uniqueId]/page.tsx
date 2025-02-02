@@ -3,13 +3,17 @@ import { ResolveImage } from "@/feature/image/components/resolveImage";
 import { ResolveUrl } from "@/feature/url/components/resolveUrl";
 import { ResolveMedia } from "@/feature/media/components/resolveMedia";
 import { Code } from "@/core/code";
+import { Resolver } from "@/core/components/resolver";
 
 export default async function Unique({
   params,
 }: {
-  params: Promise<{ uniqueId: string }>;
+  params: Promise<{ uniqueId: string }>
 }) {
+
   const { uniqueId } = await params;
+
+  return <Resolver uniqueId={uniqueId} />
 
   if (!uniqueId) return <></>;
 

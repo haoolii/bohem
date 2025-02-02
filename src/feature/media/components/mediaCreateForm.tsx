@@ -17,11 +17,10 @@ import { ExpireInList } from "@/core/constant";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { ORIGIN } from "@/core/env";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { MediaPreview } from "@/feature/media/components/mediaPreview";
-import { postShortenMedia } from "@/app/requests";
+import { postShortenMedia } from "@/core/requests";
 import { CopyIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { MediaUploader } from "@/core/components/mediaUploader";
 
 export const MediaCreateForm = () => {
   const t = useTranslations("Media feature");
@@ -33,7 +32,6 @@ export const MediaCreateForm = () => {
   const [prompt, setPrompt] = useState<string>("");
 
   const [uniqueId, setUniqueId] = useState<string>("");
-  // const [originals, setOriginals] = useState<any[]>([]);
 
   const submit = async () => {
     if (!files.length) return;
@@ -71,7 +69,7 @@ export const MediaCreateForm = () => {
             </h1>
           </div>
           <div className="flex flex-col gap-4">
-            <MediaPreview
+            <MediaUploader
               onChange={(file) => {
                 if (file) {
                   setFiles([file]);

@@ -3,6 +3,7 @@ import { GetShortenAction } from "@/app/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ORIGIN } from "@/core/env";
 import { ResolvePasswordMedia } from "./resolvePasswordMedia";
+import { MediaPreview } from "@/core/components/mediaPreview";
 
 type Props = {
   uniqueId: string;
@@ -24,15 +25,7 @@ export const ResolveMedia: React.FC<Props> = async ({ uniqueId }) => {
         <div className="flex flex-col gap-2">
           {getJson?.data?.originals?.map((original: { content: string }) => {
             const mediaUrl = `${ORIGIN}/p/o/${original?.content || ""}`;
-            return (
-              <Alert className="flex flex-col" key={mediaUrl}>
-                <video controls className="max-w-full h-auto">
-                  <source src={mediaUrl} type="video/mp4" />
-                  <source src={mediaUrl} type="audio/mpeg" />
-                  您的瀏覽器不支援視頻播放。
-                </video>
-              </Alert>
-            );
+            return <MediaPreview key={mediaUrl} url={mediaUrl} />;
           })}
         </div>
       </div>

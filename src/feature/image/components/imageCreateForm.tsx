@@ -18,9 +18,9 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { ORIGIN } from "@/core/env";
 import { useTranslations } from "next-intl";
-import { postShortenImage } from "@/app/requests";
 import { ImagePreview } from "./imagePreview";
 import { CopyIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { postShortenImage } from "@/core/requests";
 
 export const ImageCreateForm = () => {
   const t = useTranslations("Image feature");
@@ -94,7 +94,7 @@ export const ImageCreateForm = () => {
                   <Button
                     className="w-20"
                     size="sm"
-                    variant="secondary"
+                    variant="outline"
                     onClick={() => {
                       setPassword(dayjs().format("MMDD"));
                     }}
